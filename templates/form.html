@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Attack Risk Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 40px;
+        }
+        .container {
+            width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 6px;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        .slider-value {
+            text-align: right;
+            font-size: 0.9em;
+            color: #333;
+        }
+        .radio-group {
+            display: flex;
+            gap: 10px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+        .result {
+            background-color: #e7f3fe;
+            border-left: 4px solid #2196F3;
+            padding: 10px;
+            margin-top: 20px;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Heart Attack Risk Prediction</h2>
+    <form method="post" action="/predict">
+
+        <!-- Systolic Blood Pressure -->
+        <div class="form-group">
+            <label for="sbp">Systolic blood pressure:</label>
+            <input type="range" id="sbp" name="systolic_blood_pressure" min="0.161" max="0.742" step="0.001" value="0.3" oninput="sbpVal.innerText = this.value">
+            <div class="slider-value">Value: <span id="sbpVal">0.3</span></div>
+        </div>
+
+        <!-- BMI -->
+        <div class="form-group">
+            <label for="bmi">Body Mass Index (BMI):</label>
+            <input type="range" id="bmi" name="bmi" min="0" max="1" step="0.01" value="0.5" oninput="bmiVal.innerText = this.value">
+            <div class="slider-value">Value: <span id="bmiVal">0.5</span></div>
+        </div>
+
+        <!-- Heart rate -->
+        <div class="form-group">
+            <label for="hr">Heart rate:</label>
+            <input type="range" id="hr" name="heart_rate" min="0.018" max="0.082" step="0.001" value="0.05" oninput="hrVal.innerText = this.value">
+            <div class="slider-value">Value: <span id="hrVal">0.05</span></div>
+        </div>
+
+        <!-- Previous heart problems -->
+        <div class="form-group">
+            <label>Previous heart problems:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="previous_heart_problems" value="0" checked> 0</label>
+                <label><input type="radio" name="previous_heart_problems" value="1"> 1</label>
+            </div>
+        </div>
+
+        <!-- Cholesterol -->
+        <div class="form-group">
+            <label for="chol">Cholesterol level:</label>
+            <input type="range" id="chol" name="cholesterol" min="0" max="1" step="0.01" value="0.5" oninput="cholVal.innerText = this.value">
+            <div class="slider-value">Value: <span id="cholVal">0.5</span></div>
+        </div>
+
+        <!-- Diet -->
+        <div class="form-group">
+            <label>Diet:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="diet" value="0" checked> 0</label>
+                <label><input type="radio" name="diet" value="1"> 1</label>
+                <label><input type="radio" name="diet" value="2"> 2</label>
+            </div>
+        </div>
+
+        <!-- Triglycerides -->
+        <div class="form-group">
+            <label for="trig">Triglycerides level:</label>
+            <input type="range" id="trig" name="triglycerides" min="0" max="1" step="0.01" value="0.5" oninput="trigVal.innerText = this.value">
+            <div class="slider-value">Value: <span id="trigVal">0.5</span></div>
+        </div>
+
+        <!-- Stress level -->
+        <div class="form-group">
+            <label for="stress">Stress level (1–10):</label>
+            <input type="range" id="stress" name="stress_level" min="1" max="10" step="1" value="5" oninput="stressVal.innerText = this.value">
+            <div class="slider-value">Value: <span id="stressVal">5</span></div>
+        </div>
+
+        <input type="submit" value="Assess Risk">
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <strong>Result:</strong> {{ result }}
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
+
