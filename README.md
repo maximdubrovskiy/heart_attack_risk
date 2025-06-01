@@ -1,4 +1,4 @@
-# Документация сервиса: Оценка риска сердечного приступа
+# Прогнозирование риска сердечного приступа
 
 ## 1. Общее описание
 
@@ -9,9 +9,10 @@
 - Язык программирования: Python 3.11
 - Фреймворк: FastAPI
 - Сервер: Uvicorn
-- Машинное обучение: scikit-learn, joblib
+- Обработка данных: pandas
+- Машинное обучение: scikit-learn
 - Веб-интерфейс: HTML, Jinja2
-- Дополнительно: pandas, logging
+- Дополлнительно: logging, joblib
 
 ## 3. Структура проекта
 
@@ -20,6 +21,7 @@
 - `templates/form.html` — HTML-форма ввода признаков
 - `requirements.txt` — зависимости проекта
 - `notebooks/heart.ipynb` — ноутбук c исследованием и обучением модели
+- `test_predictions.csv` - данные для проверки преподавателем
 
 ## 4. Установка и запуск
 
@@ -80,13 +82,6 @@ pkill -f uvicorn
 
 **Ограничения ввода уже предусмотрены в самой HTML-форме**.
 
-### Пример CSV
-
-```csv
-systolic_blood_pressure,bmi,heart_rate,previous_heart_problems,cholesterol,diet,triglycerides,stress_level
-0.3,0.55,0.06,0,0.67,1,0.42,7
-```
-
 ## 7. Описание выходных данных
 
 - Формат ответа: HTML-страница с отображением результата
@@ -94,15 +89,7 @@ systolic_blood_pressure,bmi,heart_rate,previous_heart_problems,cholesterol,diet,
   - `High risk (1)` — высокий риск сердечного приступа
   - `Low risk (0)` — низкий риск
 
-## 8. Обработка ошибок
-
-- Код `200 OK` — успешный ответ
-- Код `422 Unprocessable Entity` — некорректные или неполные данные
-- Код `500 Internal Server Error` — ошибка предсказания или загрузки модели
-
-Сообщения об ошибках логируются в файл `app.log`.
-
-## 9. Логирование
+## 8. Логирование
 
 - Логи сохраняются в файл `app.log`
 - Формат логов: `[дата время] [уровень] сообщение`
@@ -112,7 +99,7 @@ systolic_blood_pressure,bmi,heart_rate,previous_heart_problems,cholesterol,diet,
   - Результаты предсказаний
   - Ошибки выполнения
 
-## 10. Тестирование
+## 9. Тестирование
 
 Для локального тестирования используется браузер. Также можно использовать `curl`:
 
@@ -120,7 +107,7 @@ systolic_blood_pressure,bmi,heart_rate,previous_heart_problems,cholesterol,diet,
 curl http://127.0.0.1:8000/health
 ```
 
-## 11. Будущие улучшения
+## 10. Будущие улучшения
 
 - Упаковка в Docker
 - Добавление базы данных для хранения истории предсказаний
