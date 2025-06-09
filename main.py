@@ -1,5 +1,4 @@
 import joblib
-import numpy as np
 import pandas as pd
 import logging
 from fastapi import FastAPI, Request, Form
@@ -71,7 +70,7 @@ async def predict(
         df = pd.DataFrame([input_data])
         logger.info(f"Incoming data: {input_data}")
 
-        prediction = model.predict(df)[0]
+        prediction = model.predict(df)
         result = "High risk (1)" if prediction == 1 else "Low risk (0)"
         logger.info(f"Prediction: {result}")
 
